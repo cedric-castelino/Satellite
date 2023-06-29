@@ -5,12 +5,14 @@ import java.util.List;
 
 import unsw.utils.Angle;
 
-public class Satellite {
+public abstract class Satellite {
     private String satelliteId;
     private String type;
     private double height;
     private Angle position;
     private List<File> fileList = new ArrayList<>();
+    private int speed;
+    private int range;
 
     public Satellite(String satelliteId, String type, double height, Angle position) {
         this.satelliteId = satelliteId;
@@ -23,24 +25,12 @@ public class Satellite {
         return satelliteId;
     }
 
-    public void setSatelliteId(String satelliteId) {
-        this.satelliteId = satelliteId;
-    }
-
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public double getHeight() {
         return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
     }
 
     public Angle getPosition() {
@@ -57,6 +47,44 @@ public class Satellite {
 
     public List<File> getFileList() {
         return fileList;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    /**
+     * Simulates the movement for one minute of time
+     */
+    public void move() {
+        // Calculates the angular velocity
+        double radians = this.getPosition().toRadians();
+        double angularVelocity = getSpeed() / getHeight();
+
+        // Checks if movement goes below 0 degrees
+        if ((radians - angularVelocity) < 0) {
+            angularVelocity -= radians;
+            // Resets to 360
+            radians = Angle.fromDegrees(360).toRadians() - angularVelocity;
+        } else {
+            radians -= angularVelocity;
+        }
+
+        // Moves the satellite to the new position
+        setPosition(Angle.fromRadians(radians));
+
     }
 
 }

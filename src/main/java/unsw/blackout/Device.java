@@ -16,6 +16,7 @@ public class Device {
         this.type = type;
         this.position = position;
 
+        // Set the different ranges for each device type
         if (type.equals("HandheldDevice")) {
             range = 50000;
         } else if (type.equals("LaptopDevice")) {
@@ -29,24 +30,12 @@ public class Device {
         return deviceId;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public Angle getPosition() {
         return position;
-    }
-
-    public void setPosition(Angle position) {
-        this.position = position;
     }
 
     public void addFile(File newFile) {
@@ -55,10 +44,6 @@ public class Device {
 
     public int getRange() {
         return range;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
     }
 
     public List<File> getFileList() {
